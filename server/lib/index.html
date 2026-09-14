@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aether — A Próxima Fronteira do Design & IA</title>
+  
+  <!-- Google Fonts: Syne & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+          colors: {
+            background: '#07080d',
+            surface: 'rgba(255, 255, 255, 0.03)',
+            'surface-hover': 'rgba(255, 255, 255, 0.06)',
+            border: 'rgba(255, 255, 255, 0.08)',
+            primary: {
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+            },
+            accent: '#38bdf8',
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+            'hero-glow': 'radial-gradient(ellipse 60% 50% at 50% -20%, rgba(99, 102, 241, 0.3), rgba(255, 255, 255, 0))',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-neutral-200 font-sans antialiased overflow-x-hidden selection:bg-primary-500 selection:text-white">
+
+  <!-- Mouse Spotlight Glow -->
+  <div id="spotlight" class="pointer-events-none fixed inset-0 z-30 transition duration-300"></div>
+
+  <!-- Ambient Background Gradients -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary-600/20 blur-[140px] pointer-events-none -z-10 rounded-full"></div>
+  <div class="fixed bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 blur-[160px] pointer-events-none -z-10 rounded-full"></div>
+
+  <!-- Header / Nav -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 py-4 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto flex items-center justify-between border border-border/60 bg-background/60 backdrop-blur-xl rounded-full py-3 px-6 shadow-2xl">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary-500 to-accent flex items-center justify-center text-white shadow-lg shadow-primary-500/30 group-hover:scale-105 transition">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        </div>
+        <span class="font-display font-bold text-xl tracking-tight text-white">Aether<span class="text-primary-400">.</span></span>
+      </a>
+
+      <!-- Menu links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
+        <a href="#features" class="hover:text-white transition">Funcionalidades</a>
+        <a href="#showcase" class="hover:text-white transition">Showcase</a>
+        <a href="#pricing" class="hover:text-white transition">Preços</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-4">
+        <button onclick="openModal()" class="hidden sm:inline-flex text-sm text-neutral-300 hover:text-white transition">Entrar</button>
+        <button onclick="openModal()" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs sm:text-sm font-medium rounded-full group bg-gradient-to-br from-primary-500 to-accent group-hover:from-primary-500 group-hover:to-accent hover:text-white shadow-lg shadow-primary-500/25 transition">
+          <span class="relative px-4 py-2 transition-all ease-in duration-200 bg-background rounded-full group-hover:bg-opacity-0 font-medium">
+            Começar Grátis
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 px-6 lg:px-12 flex flex-col items-center text-center">
+    <!-- Announcement Badge -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-300 text-xs md:text-sm font-medium mb-8 backdrop-blur-md animate-fade-in">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>Aether Engine v2.4 lançado publicamente</span>
+      <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl leading-[1.1] mb-6">
+      Projete experiências digitais na velocidade do seu <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-indigo-200 to-accent">pensamento.</span>
+    </h1>
+
+    <p class="text-neutral-400 text-base sm:text-lg md:text-xl max-w-2xl font-light mb-10 leading-relaxed">
+      A plataforma inteligente unificada que transforma prompts conceituais em interfaces completas, protótipos em código vivo e designs de nível mundial.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <button onclick="openModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-neutral-950 font-semibold text-sm hover:bg-neutral-200 transition shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+        <span>Experimentar Gratuitamente</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </button>
+
+      <a href="#showcase" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full border border-border bg-surface hover:bg-surface-hover text-neutral-200 font-medium text-sm transition">
+        <i data-lucide="play" class="w-4 h-4 text-primary-400"></i>
+        <span>Ver Demonstração</span>
+      </a>
+    </div>
+
+    <!-- Hero Card Mockup Preview -->
+    <div class="relative mt-16 sm:mt-24 w-full max-w-5xl group">
+      <div class="absolute -inset-1 bg-gradient-to-r from-primary-500/30 to-accent/30 rounded-2xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+      <div class="relative rounded-2xl border border-border bg-neutral-950/80 backdrop-blur-2xl overflow-hidden p-3 shadow-2xl">
+        <div class="flex items-center justify-between pb-3 px-3 border-b border-border text-xs text-neutral-500">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500/60"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500/60"></div>
+          </div>
+          <span class="font-mono text-neutral-400">aether-workspace / visual-canvas.ts</span>
+          <div class="w-12"></div>
+        </div>
+
+        <!-- Inner Interactive Preview Content -->
+        <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          <div class="col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs uppercase tracking-wider text-primary-400 font-semibold">Renderizador 3D em Tempo Real</span>
+              <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">60 FPS Estável</span>
+            </div>
+            <div class="h-60 rounded-xl bg-gradient-to-br from-indigo-950/40 via-neutral-900 to-neutral-950 border border-border/80 flex items-center justify-center relative overflow-hidden group/canvas">
+              <div class="absolute inset-0 grid-bg opacity-30"></div>
+              <div class="w-36 h-36 rounded-2xl bg-gradient-to-tr from-primary-500 to-accent rotate-12 blur-md opacity-40 animate-pulse"></div>
+              <div class="absolute w-28 h-28 rounded-xl border border-white/20 backdrop-blur-xl bg-white/5 flex flex-col items-center justify-center shadow-2xl transform transition duration-500 group-hover/canvas:rotate-6">
+                <i data-lucide="cpu" class="w-8 h-8 text-white mb-2"></i>
+                <span class="text-[10px] font-mono text-neutral-300">NEURAL CORE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4 flex flex-col justify-between">
+            <div class="p-4 rounded-xl border border-border bg-surface">
+              <span class="text-xs text-neutral-400 block mb-1">Tokens Processados</span>
+              <span class="text-2xl font-bold font-display text-white">4.8M / seg</span>
+              <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                <div class="bg-primary-400 h-full w-[82%] rounded-full"></div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl border border-border bg-surface">
+              <span class="text-xs text-neutral-400 block mb-1">Latência de Inferência</span>
+              <span class="text-2xl font-bold font-display text-emerald-400">18ms</span>
+              <p class="text-[11px] text-neutral-500 mt-2">Otimizado para conexões Edge globais</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-2.5 rounded-lg bg-primary-600/20 border border-primary-500/40 text-primary-300 text-xs font-semibold hover:bg-primary-600/30 transition text-center">
+              Abrir Playground Live
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Companies / Social Proof -->
+  <section class="py-12 border-y border-border/40 bg-surface/20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 font-semibold mb-8">
+        Adotado por criativos das empresas mais inovadoras do mundo
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition duration-500">
+        <span class="text-xl font-display font-extrabold tracking-wider">NEBULA</span>
+        <span class="text-xl font-display font-extrabold tracking-wider">HYPERION</span>
+        <span class="text-xl font-display font-extrabold tracking-wider">VERTEX.AI</span>
+        <span class="text-xl font-display font-extrabold tracking-wider">SYNAPSE</span>
+        <span class="text-xl font-display font-extrabold tracking-wider">CHRONOS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Features Section -->
+  <section id="features" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <h2 class="font-display text-xs uppercase tracking-widest text-primary-400 font-bold mb-3">Recursos Revolucionários</h2>
+      <h3 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">Projetado para superar limites visuais.</h3>
+      <p class="text-neutral-400 mt-4 text-base">Cada detalhe foi construído para potencializar seu fluxo criativo sem fricções mecânicas.</p>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 (Grand Card) -->
+      <div class="md:col-span-2 bento-card p-8 sm:p-10 rounded-3xl border border-border bg-surface relative overflow-hidden flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-400 mb-6">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-display text-2xl font-bold text-white mb-2">Composição Inteligente Multi-Camada</h4>
+          <p class="text-neutral-400 text-sm max-w-md">Estruture designs de páginas completas, gráficos vetoriais e animações de alta fidelidade em uma tela infinita.</p>
+        </div>
+        <div class="mt-8 pt-8 border-t border-border flex items-center gap-4 text-xs font-mono text-neutral-400">
+          <span class="px-2.5 py-1 rounded bg-neutral-900 border border-border">Auto-Layout 2.0</span>
+          <span class="px-2.5 py-1 rounded bg-neutral-900 border border-border">Suporte SVG/GLTF</span>
+          <span class="px-2.5 py-1 rounded bg-neutral-900 border border-border">CSS Export</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bento-card p-8 sm:p-10 rounded-3xl border border-border bg-surface flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-6">
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-display text-2xl font-bold text-white mb-2">Injeção Dinâmica de Código</h4>
+          <p class="text-neutral-400 text-sm">Gere componentes prontos para React, Vue e Tailwind em milissegundos com validação de tipagem TS.</p>
+        </div>
+        <div class="mt-8">
+          <div class="p-3 bg-neutral-950 rounded-xl border border-border text-xs font-mono text-emerald-400">
+            &gt; export const UI = () =&gt; &lt;Aether /&gt;;
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bento-card p-8 sm:p-10 rounded-3xl border border-border bg-surface flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-display text-2xl font-bold text-white mb-2">Segurança Empresarial</h4>
+          <p class="text-neutral-400 text-sm">Criptografia de ponta a ponta e compliance SOC2 com backups contínuos em múltiplos data centers.</p>
+        </div>
+        <div class="mt-8 flex items-center gap-2 text-xs text-neutral-400">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          <span>Disponibilidade de 99.99% garantida</span>
+        </div>
+      </div>
+
+      <!-- Card 4 (Grand Card) -->
+      <div class="md:col-span-2 bento-card p-8 sm:p-10 rounded-3xl border border-border bg-surface flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mb-6">
+            <i data-lucide="users" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-display text-2xl font-bold text-white mb-2">Colaboração Multiplayer Instantânea</h4>
+          <p class="text-neutral-400 text-sm max-w-md">Dezenas de designers e desenvolvedores trabalhando no mesmo projeto sem lags, conflitos de branch ou retrabalho.</p>
+        </div>
+        <div class="mt-8 flex items-center -space-x-2">
+          <img class="w-10 h-10 rounded-full border-2 border-background" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+          <img class="w-10 h-10 rounded-full border-2 border-background" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+          <img class="w-10 h-10 rounded-full border-2 border-background" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+          <div class="w-10 h-10 rounded-full border-2 border-background bg-neutral-800 flex items-center justify-center text-xs font-bold text-white">+14</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Showcase / Switcher Section -->
+  <section id="showcase" class="py-24 px-6 lg:px-12 bg-neutral-950/60 border-t border-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="text-xs font-bold text-accent uppercase tracking-widest">Interface Viva</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Poder sem complexidade desnecessária.</h2>
+        </div>
+        <!-- Tab Selector -->
+        <div class="flex items-center gap-2 p-1.5 rounded-xl bg-surface border border-border self-start">
+          <button onclick="switchTab('design')" id="tab-design" class="tab-btn active px-4 py-2 text-xs font-semibold rounded-lg transition">Design Engine</button>
+          <button onclick="switchTab('code')" id="tab-code" class="tab-btn px-4 py-2 text-xs font-semibold rounded-lg transition text-neutral-400 hover:text-white">Live Code</button>
+          <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-4 py-2 text-xs font-semibold rounded-lg transition text-neutral-400 hover:text-white">Telemetria</button>
+        </div>
+      </div>
+
+      <!-- Tab Display Area -->
+      <div id="tab-content" class="rounded-3xl border border-border bg-gradient-to-b from-neutral-900 to-background p-8 md:p-12 shadow-2xl transition duration-300">
+        <div id="content-inner" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-xs font-mono text-primary-400"># 01 — MOTOR VETORIAL</span>
+            <h3 class="text-2xl sm:text-3xl font-display font-bold text-white mt-2 mb-4">Desenho preciso com aceleração por GPU</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+              Renderize malhas 3D e interfaces vetoriais ricas com mais de 10.000 nós sem qualquer perda de performance no browser.
+            </p>
+            <ul class="space-y-3 text-sm text-neutral-300">
+              <li class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-primary-400"></i>
+                <span>Suporte nativo a WebGPU & WebGL 2.0</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-primary-400"></i>
+                <span>Manipulação direta de curvas Bézier inteligentes</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-primary-400"></i>
+                <span>Snapping paramétrico de pixel perfeito</span>
+              </li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-border bg-neutral-950 p-6 flex flex-col items-center justify-center min-h-[300px]">
+            <div class="relative w-48 h-48 flex items-center justify-center">
+              <div class="absolute inset-0 rounded-full border-2 border-dashed border-primary-500/40 animate-spin-slow"></div>
+              <div class="w-32 h-32 rounded-2xl bg-gradient-to-tr from-primary-600 to-accent/40 backdrop-blur-md flex items-center justify-center text-white shadow-2xl">
+                <i data-lucide="box" class="w-12 h-12"></i>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-neutral-500 mt-6">Preview em tempo real • 120 FPS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Numbers / Impact Stats -->
+  <section class="py-20 px-6 max-w-7xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="p-6 rounded-2xl border border-border/60 bg-surface/50">
+        <div class="font-display text-4xl sm:text-5xl font-extrabold text-white counter" data-target="99.9">0</div>
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mt-2 block">% Uptime do Sistema</span>
+      </div>
+      <div class="p-6 rounded-2xl border border-border/60 bg-surface/50">
+        <div class="font-display text-4xl sm:text-5xl font-extrabold text-white counter" data-target="250">0</div>
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mt-2 block">K+ Projetos Ativos</span>
+      </div>
+      <div class="p-6 rounded-2xl border border-border/60 bg-surface/50">
+        <div class="font-display text-4xl sm:text-5xl font-extrabold text-primary-400 counter" data-target="10">0</div>
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mt-2 block">x Mais Rápido</span>
+      </div>
+      <div class="p-6 rounded-2xl border border-border/60 bg-surface/50">
+        <div class="font-display text-4xl sm:text-5xl font-extrabold text-accent counter" data-target="150">0</div>
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mt-2 block">+ Países Atendidos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-28 px-6 lg:px-12 border-t border-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="font-display text-xs uppercase tracking-widest text-primary-400 font-bold mb-3">Planos Flexíveis</h2>
+        <h3 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">Investimento claro, sem surpresas.</h3>
+        
+        <!-- Toggle Monthly / Yearly -->
+        <div class="mt-8 inline-flex items-center gap-3 p-1.5 rounded-full bg-surface border border-border">
+          <button id="billing-monthly" onclick="setBilling('monthly')" class="px-5 py-2 text-xs font-semibold rounded-full bg-white text-neutral-900 transition">Mensal</button>
+          <button id="billing-yearly" onclick="setBilling('yearly')" class="px-5 py-2 text-xs font-semibold rounded-full text-neutral-400 hover:text-white transition flex items-center gap-1.5">
+            <span>Anual</span>
+            <span class="text-[10px] bg-primary-500/20 text-primary-300 font-bold px-2 py-0.5 rounded-full">-20%</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Starter Plan -->
+        <div class="rounded-3xl border border-border bg-surface p-8 flex flex-col justify-between">
+          <div>
+            <h4 class="font-display text-xl font-bold text-white">Starter</h4>
+            <p class="text-neutral-400 text-sm mt-1">Perfeito para freelancers e exploração criativa inicial.</p>
+            <div class="my-6">
+              <span class="text-4xl font-display font-extrabold text-white price-val" data-monthly="R$ 0" data-yearly="R$ 0">R$ 0</span>
+              <span class="text-neutral-400 text-sm font-light"> / sempre</span>
+            </div>
+            <ul class="space-y-3.5 text-sm text-neutral-300">
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Até 3 projetos ativos</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Exportação em HTML & CSS</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Suporte da comunidade</li>
+            </ul>
+          </div>
+          <button onclick="openModal()" class="w-full mt-8 py-3 rounded-xl border border-border hover:bg-neutral-800 text-sm font-semibold transition">Criar Conta Gratuita</button>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="rounded-3xl border-2 border-primary-500 bg-gradient-to-b from-primary-950/40 via-surface to-surface p-8 relative shadow-2xl flex flex-col justify-between scale-105">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary-500 text-[11px] font-bold uppercase tracking-wider text-white">
+            Mais Escolhido
+          </div>
+          <div>
+            <h4 class="font-display text-xl font-bold text-white">Pro Creator</h4>
+            <p class="text-neutral-400 text-sm mt-1">Para designers e devs que constroem profissionalmente.</p>
+            <div class="my-6">
+              <span class="text-4xl font-display font-extrabold text-white price-val" data-monthly="R$ 79" data-yearly="R$ 64">R$ 79</span>
+              <span class="text-neutral-400 text-sm font-light"> / mês</span>
+            </div>
+            <ul class="space-y-3.5 text-sm text-neutral-300">
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Projetos e telas ilimitados</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Geração de código React/Vue/TS</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Suporte prioritário 24/7</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Acelerador por IA de prompts</li>
+            </ul>
+          </div>
+          <button onclick="openModal()" class="w-full mt-8 py-3 rounded-xl bg-primary-600 hover:bg-primary-500 text-white text-sm font-semibold transition shadow-lg shadow-primary-600/30">Assinar Plano Pro</button>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="rounded-3xl border border-border bg-surface p-8 flex flex-col justify-between">
+          <div>
+            <h4 class="font-display text-xl font-bold text-white">Enterprise</h4>
+            <p class="text-neutral-400 text-sm mt-1">Para agências, scale-ups e grandes corporações globais.</p>
+            <div class="my-6">
+              <span class="text-4xl font-display font-extrabold text-white price-val" data-monthly="R$ 249" data-yearly="R$ 199">R$ 249</span>
+              <span class="text-neutral-400 text-sm font-light"> / mês</span>
+            </div>
+            <ul class="space-y-3.5 text-sm text-neutral-300">
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Tudo do Pro + Instâncias dedicadas</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Single Sign-On (SAML SSO)</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> Gerente de sucesso exclusivo</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-primary-400"></i> SLA de 99.99% garantido em contrato</li>
+            </ul>
+          </div>
+          <button onclick="openModal()" class="w-full mt-8 py-3 rounded-xl border border-border hover:bg-neutral-800 text-sm font-semibold transition">Falar com Consultor</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 px-6 lg:px-12 bg-surface/20 border-t border-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold text-accent uppercase tracking-widest">Avaliações</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">O que dizem os times criativos</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Review 1 -->
+        <div class="p-8 rounded-2xl border border-border bg-surface flex flex-col justify-between">
+          <p class="text-neutral-300 text-sm leading-relaxed mb-6">
+            "O Aether reduziu o tempo entre o conceito inicial e a entrega do front-end pronto para produção de semanas para apenas 2 dias. Simplesmente indispensável."
+          </p>
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80" alt="Beatriz Costa">
+            <div>
+              <h5 class="text-sm font-semibold text-white">Beatriz Costa</h5>
+              <p class="text-xs text-neutral-400">Head of Product no Nubase</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="p-8 rounded-2xl border border-border bg-surface flex flex-col justify-between">
+          <p class="text-neutral-300 text-sm leading-relaxed mb-6">
+            "A precisão do motor de layout e a qualidade visual dos componentes exportados são muito superiores a qualquer outro framework existente no mercado."
+          </p>
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" alt="Lucas Silveira">
+            <div>
+              <h5 class="text-sm font-semibold text-white">Lucas Silveira</h5>
+              <p class="text-xs text-neutral-400">Design Lead na PixelWave</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="p-8 rounded-2xl border border-border bg-surface flex flex-col justify-between">
+          <p class="text-neutral-300 text-sm leading-relaxed mb-6">
+            "O suporte a aceleração gráfica no navegador tornou as apresentações para clientes dez vezes mais impactantes. É um divisor de águas absoluto."
+          </p>
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80" alt="Marina Rocha">
+            <div>
+              <h5 class="text-sm font-semibold text-white">Marina Rocha</h5>
+              <p class="text-xs text-neutral-400">Fundadora do Studio Nova</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section id="faq" class="py-24 px-6 lg:px-12 max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-xs font-bold text-primary-400 uppercase tracking-widest">Dúvidas Frequentes</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Perguntas comuns sobre a plataforma</h2>
+    </div>
+
+    <div class="space-y-4">
+      <!-- Item 1 -->
+      <div class="faq-item border border-border rounded-2xl bg-surface overflow-hidden">
+        <button class="faq-btn w-full p-6 text-left flex items-center justify-between font-medium text-white hover:text-primary-300 transition">
+          <span>Como funciona a integração com Figma e código existente?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-neutral-400 transition-transform duration-300"></i>
+        </button>
+        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-neutral-400 text-sm leading-relaxed">
+          <div class="pb-6">
+            Você pode importar arquivos Figma diretamente através de nosso plugin nativo com um clique. Todo elemento é traduzido em código limpo, sem classes inline bagunçadas.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="faq-item border border-border rounded-2xl bg-surface overflow-hidden">
+        <button class="faq-btn w-full p-6 text-left flex items-center justify-between font-medium text-white hover:text-primary-300 transition">
+          <span>Preciso de conhecimento avançado em programação?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-neutral-400 transition-transform duration-300"></i>
+        </button>
+        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-neutral-400 text-sm leading-relaxed">
+          <div class="pb-6">
+            Não! A interface possui controle totalmente visual intuitivo. Usuários avançados podem editar código diretamente se desejarem, mas tudo pode ser feito via drag-and-drop e comandos por IA.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="faq-item border border-border rounded-2xl bg-surface overflow-hidden">
+        <button class="faq-btn w-full p-6 text-left flex items-center justify-between font-medium text-white hover:text-primary-300 transition">
+          <span>Posso cancelar minha assinatura a qualquer momento?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-neutral-400 transition-transform duration-300"></i>
+        </button>
+        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-neutral-400 text-sm leading-relaxed">
+          <div class="pb-6">
+            Sim, o cancelamento é instantâneo no painel de configurações sem burocracias ou multas de rescisão. Seus projetos exportados continuam funcionando para sempre.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Callout -->
+  <section class="py-24 px-6 lg:px-12">
+    <div class="max-w-6xl mx-auto rounded-3xl border border-primary-500/40 bg-gradient-to-tr from-indigo-950/60 via-surface to-background p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <h2 class="font-display text-3xl sm:text-5xl font-bold text-white max-w-2xl mx-auto tracking-tight">
+        Pronto para elevar o padrão do seu design?
+      </h2>
+      <p class="text-neutral-300 text-base max-w-xl mx-auto mt-4 mb-8 font-light">
+        Junte-se a milhares de designers, criadores e engenheiros de ponta que já utilizam o Aether diariamente.
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button onclick="openModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-neutral-900 font-semibold text-sm hover:bg-neutral-100 transition shadow-xl">
+          Iniciar Teste Gratuito de 14 Dias
+        </button>
+        <button onclick="openModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-full border border-border bg-neutral-900 hover:bg-neutral-800 text-sm font-medium transition">
+          Agendar Demonstração VIP
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border/80 bg-neutral-950 py-16 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
+      <div class="md:col-span-2">
+        <a href="#" class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </div>
+          <span class="font-display font-bold text-xl text-white">Aether<span class="text-primary-400">.</span></span>
+        </a>
+        <p class="text-neutral-400 text-sm max-w-sm font-light">
+          A infraestrutura moderna de criação de software visual para times ambiciosos ao redor do globo.
+        </p>
+      </div>
+
+      <div>
+        <h5 class="font-semibold text-white text-sm mb-4">Produto</h5>
+        <ul class="space-y-2 text-sm text-neutral-400">
+          <li><a href="#features" class="hover:text-white transition">Funcionalidades</a></li>
+          <li><a href="#showcase" class="hover:text-white transition">Renderizador</a></li>
+          <li><a href="#pricing" class="hover:text-white transition">Preços</a></li>
+          <li><a href="#" class="hover:text-white transition">Changelog</a></li>
+        </ul>

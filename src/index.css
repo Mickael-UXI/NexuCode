@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
+@import 'highlight.js/styles/github.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cada variável é um trio "R G B" (sem vírgulas), formato exigido pela sintaxe
+   rgb(var(--x) / <alpha>) usada no tailwind.config.js — é isso que permite o
+   Tailwind aplicar opacidade (bg-accent/40, border-accent/50 etc.) em cima
+   de uma cor que também precisa trocar de valor no tema escuro. */
+:root {
+  --color-bg: 250 249 247;
+  --color-surface: 245 244 241;
+  --color-surface-2: 239 238 233;
+  --color-border: 229 227 221;
+  --color-border-strong: 212 209 200;
+  --color-text: 43 43 43;
+  --color-text-dim: 107 107 107;
+  --color-text-faint: 154 154 154;
+  --color-accent: 201 100 66;
+  --color-accent-soft: 232 201 184;
+  --color-accent-bg: 253 245 240;
+
+  color-scheme: light;
+}
+
+.dark {
+  --color-bg: 24 24 22;
+  --color-surface: 34 34 31;
+  --color-surface-2: 44 44 40;
+  --color-border: 58 58 53;
+  --color-border-strong: 76 76 70;
+  --color-text: 237 234 228;
+  --color-text-dim: 168 164 155;
+  --color-text-faint: 114 111 103;
+  --color-accent: 217 119 87;
+  --color-accent-soft: 107 69 54;
+  --color-accent-bg: 42 32 27;
+
+  color-scheme: dark;
+}
+
+/* Transição suave ao trocar de tema, sem deixar tudo "piscando" */
+body, .transition-theme {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--color-bg));
+  color: rgb(var(--color-text));
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border-strong));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-text-faint));
+}
+
+/* Accent text */
+.text-accent { color: rgb(var(--color-accent)); }
+.text-dim { color: rgb(var(--color-text-dim)); }
+.text-faint { color: rgb(var(--color-text-faint)); }
+
+/* Animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+@keyframes draw-line {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes message-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-up { animation: fade-up 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+.animate-fade-in { animation: fade-in 0.8s ease forwards; }
+.animate-blink { animation: blink 1s step-start infinite; }
+.animate-pulse-soft { animation: pulse-soft 2.5s ease-in-out infinite; }
+.animate-message-in { animation: message-in 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+
+/* Typing dots */
+.typing-dot { animation: typing-bounce 1.4s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgb(var(--color-text));
+  color: rgb(var(--color-bg));
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  background: rgb(var(--color-accent));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 100, 66, 0.2);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: rgb(var(--color-text));
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  border: 1px solid rgb(var(--color-border-strong));
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  border-color: rgb(var(--color-text));
+  background: rgb(var(--color-surface));
+}
+
+/* Card hover */
+.card-hover {
+  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.card-hover:hover {
+  border-color: rgb(var(--color-border-strong));
+  background: rgb(var(--color-surface));
+  transform: translateY(-2px);
+}
+
+/* Code block */
+.code-block {
+  background: rgb(var(--color-surface-2));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 8px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+/* Divider with draw animation */
+.divider-draw {
+  animation: draw-line 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* Shimmer for typing */
+.shimmer {
+  background: linear-gradient(90deg, rgb(var(--color-surface-2)) 25%, rgb(var(--color-surface)) 50%, rgb(var(--color-surface-2)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Ajusta o tema padrão do highlight.js (github.css) para herdar o
+   fundo do nosso bloco de código em vez do branco puro da lib. */
+.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* O highlight.js "github.css" importado no topo é feito pra fundo claro.
+   No tema escuro, sobrescrevemos só as cores de sintaxe (o fundo já é
+   transparente acima e herda do .code-block/rgb(--color-surface)). */
+.dark .hljs { color: rgb(var(--color-text)); }
+.dark .hljs-comment,
+.dark .hljs-quote { color: rgb(var(--color-text-faint)); font-style: italic; }
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-literal,
+.dark .hljs-tag { color: #e8967a; }
+.dark .hljs-string,
+.dark .hljs-attr,
+.dark .hljs-template-tag,
+.dark .hljs-addition { color: #a8c98a; }
+.dark .hljs-number,
+.dark .hljs-built_in,
+.dark .hljs-type { color: #d7b370; }
+.dark .hljs-title,
+.dark .hljs-section,
+.dark .hljs-name { color: #8fb8de; }
+.dark .hljs-variable,
+.dark .hljs-attribute { color: rgb(var(--color-accent)); }
+.dark .hljs-deletion { color: #e08080; }
